@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Login from './components/admin/Login';
+import Dashboard from './components/admin/Dashboard';
+import Restaurants from './components/admin/Restaurants';
+import AddRestaurant from  './components/admin/AddRestaurant';
+import Customers from './components/admin/Customers';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+        <Route path="/midika-admin" exact component={Login} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/restaurants" exact component={Restaurants} />
+        <Route path="/add-restaurant" exact component={AddRestaurant} />
+        <Route path="/customers" exact component={Customers} />
+        <Redirect to="/midika-admin" />
+    </Switch>
   );
 }
 
