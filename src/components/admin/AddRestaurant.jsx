@@ -19,9 +19,9 @@ function AddRestaurant() {
         
     }, []);
 
-    const [myCountry, setMyCountry] = useState();
-    const [myState, setMyState] = useState();
-    const [myCity, setMyCity] = useState();
+     const [myCountry, setMyCountry] = useState();
+     const [myState, setMyState] = useState();
+     const [myCity, setMyCity] = useState();
 
     const [selectedCountry, setSelectedCountry] = useState();
     const [selectedState, setSelectedState] = useState(0);
@@ -40,6 +40,7 @@ function AddRestaurant() {
 
     const [{alt, src}, setImg] = useState({
         src: '',
+        alt:''
     });
 
     const handleImg = (e) => {
@@ -51,6 +52,33 @@ function AddRestaurant() {
         }   
     }
 
+    
+    const [data, setData] = useState({
+      name:"",
+      address:"",
+      country:"",
+      state:"",
+      city:""
+    });
+    
+    const InputEvent = (event) => {
+      const {name, value} = event.target;
+
+      setData((preVal) => {
+        return {
+          ...preVal,
+          [name]:value
+        }
+      });
+
+    }
+
+    const formSubmit = (e) => {
+      e.preventDefault();
+      alert(data.fullname);
+    };
+
+   
     return (
         <>
             
@@ -85,27 +113,27 @@ function AddRestaurant() {
 
 
               <div className="panel-body">
-                <form action="https://seantheme.com/" method="POST">
+                <form onSubmit={formSubmit} method="POST">
                 <fieldset>
 
                 <div className="row">
                   <div className="col-md-12 form-group">
                     <label for="exampleInputName">Name:</label>
-                    <input type="email" className="form-control" id="exampleInputName" placeholder="Enter Name"/>
+                    <input type="text" className="form-control" id="exampleInputName" placeholder="Enter Name" name="name" value={data.name} onChange={InputEvent} />
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-md-12 form-group">
                     <label for="exampleInputAddress">Address:</label>
-                    <textarea className="form-control" id="exampleInputAddress" placeholder="Enter Address"></textarea>
+                    <textarea className="form-control" id="exampleInputAddress" placeholder="Enter Address" name="address" value={data.address} onChange={InputEvent}></textarea>
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-md-4 form-group">
                     <label for="exampleInputCountry">Country:</label>
-                    <select name="country" className="form-control" value={myCountry} onChange={changeCountry}>
+                    <select name="country" className="form-control" value={data.country} onChange={changeCountry}>
                         <option value="">Select Country</option>
                         { Country.map(c => {
                           return (
@@ -118,7 +146,7 @@ function AddRestaurant() {
                   </div>
                   <div className="col-md-4 form-group">
                     <label for="exampleInputState">State:</label>
-                    <select name="state" className="form-control" value={myState} onChange={changeState}>
+                    <select name="state" className="form-control" value={data.state} onChange={changeState}>
                         <option value="">Select state</option>
                         { 
                           selectedState.length > 0 ?
@@ -135,7 +163,7 @@ function AddRestaurant() {
                   </div>
                   <div className="col-md-4 form-group">
                     <label for="exampleInputCity">City:</label>
-                    <select name="city" class="form-control" value={myCity}>
+                    <select name="city" class="form-control" value={data.city}>
                           <option value="">Select City</option>
                           {
                             selectedCity.length > 0 ?
